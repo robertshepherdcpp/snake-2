@@ -1,7 +1,10 @@
+#include<iostream>
+
 #include <SFML/Graphics.hpp>
 
 #include "snake.h"
 #include "fruit.h"
+#include "pipe_manager.h"
 
 int main()
 {
@@ -9,6 +12,9 @@ int main()
 
     snake s{};
     std::vector<fruit> f{ fruit{} };
+    pipe_manager p{};
+
+    int score = 0;
 
     while (window.isOpen())
     {
@@ -24,6 +30,7 @@ int main()
                 if (event.key.code == sf::Keyboard::S) { s.moveDown(); }
                 if (event.key.code == sf::Keyboard::D) { s.moveRight(); }
                 if (event.key.code == sf::Keyboard::X) { s.snake_parts[0].setPosition(sf::Vector2f(400, 400)); }
+                if (event.key.code == sf::Keyboard::Q) { s.dead = false; }
             }
         }
 
@@ -36,11 +43,27 @@ int main()
                 if (x.getGlobalBounds().intersects(f_s.s.getGlobalBounds()) && f_s.dead != true)
                 {
                     f_s.dead = true;
+                    score += 1;
                     f.push_back(fruit{});
                     s.addPart();
+
+                    std::cout << "score: " << score << "\n";
                 }
             }
         }
+
+        for (const auto& x : p.pipes)
+        {
+            for (const auto& y : s.snake_parts)
+            {
+                if (x.first.s.getGlobalBounds().intersects(y.getGlobalBounds()) || x.second.s.getGlobalBounds().intersects(y.getGlobalBounds()))
+                {
+                    s.dead = true;
+                }
+            }
+        }
+
+        p.update();
 
         window.clear();
         s.draw(window);
@@ -48,6 +71,7 @@ int main()
         {
             x.draw(window);
         }
+        p.print(window);
         window.display();
     }
 

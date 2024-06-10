@@ -167,9 +167,12 @@ auto snake::moveDown() -> void
 
 auto snake::draw(sf::RenderWindow& w) -> void
 {
-	for (auto& s : snake_parts)
+	if (!dead)
 	{
-		w.draw(s);
+		for (auto& s : snake_parts)
+		{
+			w.draw(s);
+		}
+		w.draw(snake_parts[0]); // so that the head appears above everything else.
 	}
-	w.draw(snake_parts[0]); // so that the head appears above everything else.
 }

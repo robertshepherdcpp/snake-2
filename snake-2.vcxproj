@@ -129,10 +129,14 @@
   <ItemGroup>
     <ClCompile Include="fruit.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pipe.cpp" />
+    <ClCompile Include="pipe_manager.cpp" />
     <ClCompile Include="snake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fruit.h" />
+    <ClInclude Include="pipe.h" />
+    <ClInclude Include="pipe_manager.h" />
     <ClInclude Include="snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

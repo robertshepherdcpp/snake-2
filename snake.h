@@ -21,6 +21,7 @@ struct snake
 	auto draw(sf::RenderWindow& w) -> void;
 
 	double direction = 2; // 1 is up, 0.5 is right, 0 is down, -0.5 is left
+	bool dead = false;
 
 	std::vector<sf::Sprite> snake_parts{};
 
