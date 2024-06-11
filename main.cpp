@@ -15,6 +15,7 @@ int main()
     pipe_manager p{};
 
     int score = 0;
+    bool show_pipes = true;
 
     while (window.isOpen())
     {
@@ -31,6 +32,7 @@ int main()
                 if (event.key.code == sf::Keyboard::D) { s.moveRight(); }
                 if (event.key.code == sf::Keyboard::X) { s.snake_parts[0].setPosition(sf::Vector2f(400, 400)); }
                 if (event.key.code == sf::Keyboard::Q) { s.dead = false; }
+                if (event.key.code == sf::Keyboard::N) { if (show_pipes) { show_pipes = false; } else { show_pipes = true; } }
             }
         }
 
@@ -52,18 +54,24 @@ int main()
             }
         }
 
-        for (const auto& x : p.pipes)
+        if (show_pipes)
         {
-            for (const auto& y : s.snake_parts)
+            for (const auto& x : p.pipes)
             {
-                if (x.first.s.getGlobalBounds().intersects(y.getGlobalBounds()) || x.second.s.getGlobalBounds().intersects(y.getGlobalBounds()))
+                for (const auto& y : s.snake_parts)
                 {
-                    s.dead = true;
+                    if (x.first.s.getGlobalBounds().intersects(y.getGlobalBounds()) || x.second.s.getGlobalBounds().intersects(y.getGlobalBounds()))
+                    {
+                        s.dead = true;
+                    }
                 }
             }
         }
 
-        p.update();
+        if (show_pipes)
+        {
+            p.update();
+        }
 
         window.clear();
         s.draw(window);
@@ -71,7 +79,10 @@ int main()
         {
             x.draw(window);
         }
-        p.print(window);
+        if (show_pipes)
+        {
+            p.print(window);
+        }
         window.display();
     }
 
