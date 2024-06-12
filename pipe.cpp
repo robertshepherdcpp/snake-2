@@ -5,6 +5,8 @@ pipe::pipe(int x, int y)
 	t.loadFromFile("pipe.png");
 	s.setTexture(t);
 
+	s.setColor(sf::Color(19, 82, 4));
+
 	s.setPosition(float(x), float(y));
 }
 

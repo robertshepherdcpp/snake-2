@@ -6,6 +6,8 @@ fruit::fruit()
 	s.setTexture(t);
 
 	s.setPosition(sf::Vector2f(random_position(), random_position()));
+
+	s.setColor(sf::Color(0, 135, 255));
 }
 
 auto fruit::die() -> void
